@@ -14,12 +14,12 @@ itemRouter.post("/", async (req, res) => {
 
 itemRouter.get("/", async (req, res) => {
     const items = await Item.find().populate("seller");
-    res.send({ items: items });
+    res.send({ results: items });
 });
 
 itemRouter.get("/:id", async (req, res) => {
     const item = await Item.findById(req.params.id).populate("seller");
-    res.send({ item: item });
+    res.send({ results: item });
 });
 
 export default itemRouter;
