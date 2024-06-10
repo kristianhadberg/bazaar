@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 function ItemGrid() {
     const { data: items } = useItems();
     return (
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {items.map((item) => (
                 <Card key={item.id}>
                     <CardHeader>
