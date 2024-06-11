@@ -1,19 +1,35 @@
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
+import useAuthStore from "@/store";
 
 function NavBar() {
+    const { user, logout } = useAuthStore();
+
     return (
-        <div className="flex justify-between">
+        <div className="flex justify-between mb-12">
             <div>
                 <Link to="/">ICON TEMP</Link>
             </div>
             <div className="flex gap-2">
-                <Link to="/login">
-                    <Button variant="outline">Sign in</Button>
-                </Link>
-                <Link to="/register">
-                    <Button variant="outline">Register</Button>
-                </Link>
+                {user == null ? (
+                    <>
+                        <Link to="/login">
+                            <Button variant="outline">Sign in</Button>
+                        </Link>
+                        <Link to="/register">
+                            <Button variant="outline">Register</Button>
+                        </Link>
+                    </>
+                ) : (
+                    <>
+                        <Link to="/add-item">
+                            <Button>Add item</Button>
+                        </Link>
+                        <Button onClick={logout} variant="outline">
+                            Log out
+                        </Button>
+                    </>
+                )}
             </div>
         </div>
     );
