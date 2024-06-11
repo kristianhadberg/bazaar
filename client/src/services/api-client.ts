@@ -1,10 +1,26 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
-const apiClient = axios.create({
+export interface FetchResponse<T> {
+    results: T[];
+}
+
+const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BAZAAR_API_URL,
     params: {
         // todo
     },
 });
 
-export default apiClient;
+class ApiClient<T> {
+    endpoint: string;
+
+    constructor(endpoint: string) {
+        this.endpoint = endpoint;
+    }
+
+    getAll = (config?: AxiosRequestConfig) => axiosInstance.get<FetchResponse<T>>(this.endpoint, config).then((res) => res.data);
+
+    post = (data: T, config?: AxiosRequestConfig) => axiosInstance.post<T>(this.endpoint, data, config).then((res) => res.data);
+}
+
+export default ApiClient;
