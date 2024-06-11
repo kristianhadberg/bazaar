@@ -35,7 +35,7 @@ authRouter.post("/login", async (req, res) => {
     if (!validPassword) return res.status(401).send("Incorrect login information.");
 
     const token = jwt.sign({ _id: user._id }, "secretKey");
-    res.header("auth-token", token).send(token);
+    res.header("auth-token", token).send({ token: token, id: user._id, username: user.username });
 });
 
 export default authRouter;

@@ -14,8 +14,8 @@ function ItemGrid() {
     return (
         <>
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {data?.results?.map((item) => (
-                    <Card key={item.id}>
+                {data?.results?.map((item, index) => (
+                    <Card key={item.id || index}>
                         <CardHeader>
                             <CardTitle>{item.title}</CardTitle>
                             <CardDescription>{item.description}</CardDescription>

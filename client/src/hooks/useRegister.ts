@@ -5,6 +5,7 @@ const apiClient = new ApiClient<{ username: string; password: string }>("auth/re
 
 const useRegister = () => {
     return useMutation({
+        mutationKey: ["login"],
         mutationFn: (data: { username: string; password: string }) => apiClient.post(data),
     });
 };

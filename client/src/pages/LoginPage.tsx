@@ -7,9 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import useLogin from "@/hooks/useLogin";
+import useAuthStore from "@/store";
 
 function LoginPage() {
     const navigate = useNavigate();
+    const { setUser } = useAuthStore();
 
     const formSchema = z.object({
         username: z.string().min(2).max(50),
@@ -28,7 +30,11 @@ function LoginPage() {
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         login(values, {
-            onSuccess: () => {
+            onSuccess: (res) => {
+                setUser({
+                    id: res.id,
+                    username: res.username,
+                });
                 navigate("/");
             },
         });
