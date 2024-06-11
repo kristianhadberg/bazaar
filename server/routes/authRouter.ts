@@ -19,9 +19,9 @@ authRouter.post("/register", async (req, res) => {
 
     try {
         await newUser.save();
-        res.json("User created");
+        res.status(201).json("User created");
     } catch (error) {
-        res.json({ message: error });
+        res.status(500).json({ message: "Internal server error" });
     }
 });
 
