@@ -26,7 +26,7 @@ function RegisterPage() {
         },
     });
 
-    const { mutate: register, isLoading, error, isSuccess } = useRegister();
+    const { mutate: register, isLoading, error } = useRegister();
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         register(values, {
