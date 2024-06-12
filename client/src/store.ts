@@ -7,10 +7,25 @@ interface AuthStoreState {
     logout: () => void;
 }
 
+interface ItemQuery {
+    searchText?: string;
+}
+
+interface ItemQueryStore {
+    itemQuery: ItemQuery;
+    setSearchText: (searchText: string) => void;
+}
+
 const useAuthStore = create<AuthStoreState>((set) => ({
     user: null,
     setUser: (user) => set({ user }),
     logout: () => set({ user: null }),
 }));
 
+export const useItemQueryStore = create<ItemQueryStore>((set) => ({
+    itemQuery: {},
+    setSearchText: (searchText) => set({ itemQuery: { searchText } }),
+}));
+
+// export useItemQueryStore;
 export default useAuthStore;

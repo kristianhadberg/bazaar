@@ -7,8 +7,6 @@ function ItemDetailPage() {
 
     const { data: item, isLoading, error } = useItem(id!);
 
-    console.log(item);
-
     return (
         <div className="flex gap-20 flex-row justify-between">
             <div className="basis-5/12">Image</div>
