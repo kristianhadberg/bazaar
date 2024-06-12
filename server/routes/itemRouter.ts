@@ -14,8 +14,21 @@ itemRouter.post("/", async (req, res) => {
 });
 
 itemRouter.get("/", async (req, res) => {
-    const items = await Item.find().populate("seller");
-    res.send({ results: items });
+    const { search } = req.query;
+    let query = {};
+
+    if (search) {
+        query = {
+            $or: [{ title: { $regex: search, $options: "i" } }, { description: { $regex: search, $options: "i" } }],
+        };
+    }
+
+    try {
+        const items = await Item.find(query).populate("seller");
+        res.send({ results: items });
+    } catch (err) {
+        res.status(500).send({ error: "Error" });
+    }
 });
 
 itemRouter.get("/:id", async (req, res) => {
