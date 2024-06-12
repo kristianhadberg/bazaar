@@ -1,5 +1,5 @@
 import useItems from "@/hooks/useItems";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { Link } from "react-router-dom";
 
 function ItemGrid() {
@@ -17,14 +17,14 @@ function ItemGrid() {
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {data?.results?.map((item) => (
                     <Link key={item._id} to={`/items/${item._id}`}>
-                        <Card>
+                        <Card className="flex flex-col justify-between h-64">
                             <CardHeader>
                                 <CardTitle>{item.title}</CardTitle>
                                 <CardDescription>{item.description}</CardDescription>
                             </CardHeader>
-                            <CardContent>
-                                <p>{item.price}</p>
-                            </CardContent>
+                            <CardFooter className="justify-end">
+                                <p>€ {item.price}</p>
+                            </CardFooter>
                         </Card>
                     </Link>
                 ))}

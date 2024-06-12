@@ -20,7 +20,7 @@ function ItemDetailPage() {
                         <p>{item?.description}</p>
                     </div>
                     <div className="flex justify-between mt-10 items-center">
-                        <p className="text-xl">DKK {item?.price},-</p>
+                        <p className="text-xl">€ {item?.price}</p>
                         <Button>Buy now</Button>
                     </div>
                 </div>
