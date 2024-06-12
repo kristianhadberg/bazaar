@@ -8,7 +8,9 @@ function NavBar() {
     return (
         <div className="flex justify-between mb-12">
             <div>
-                <Link to="/">ICON TEMP</Link>
+                <Link to="/">
+                    <img src="public/bazaar-high-resolution-logo-transparent.png" className="w-40"></img>
+                </Link>
             </div>
             <div className="flex gap-2">
                 {user == null ? (
