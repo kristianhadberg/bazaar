@@ -5,4 +5,5 @@ export default interface CreateItemDto {
     description: string;
     price: number;
     seller: Schema.Types.ObjectId;
+    category: string;
 }

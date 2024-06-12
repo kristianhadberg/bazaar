@@ -8,6 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import useAddItem from "@/hooks/useAddItem";
 import useAuthStore from "@/store";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 function AddItemPage() {
     const navigate = useNavigate();
@@ -20,6 +21,7 @@ function AddItemPage() {
         description: z.string().min(2),
         price: z.coerce.number(),
         seller: z.string(),
+        category: z.string(),
     });
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -29,12 +31,15 @@ function AddItemPage() {
             description: "",
             price: 0,
             seller: user?.id,
+            category: "",
         },
     });
 
     function onSubmit(values: z.infer<typeof formSchema>) {
         addItem(values);
     }
+
+    const categories = ["Clothes", "Antiques", "Accessories"];
 
     return (
         <>
@@ -75,6 +80,33 @@ function AddItemPage() {
                                 <FormLabel>Price</FormLabel>
                                 <FormControl>
                                     <Input type="number" placeholder="Enter the price of the item" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="category"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Category</FormLabel>
+                                <FormControl>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <SelectTrigger className="w-[180px]">
+                                            <SelectValue placeholder="Select a category" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectGroup>
+                                                {categories.map((c) => (
+                                                    <SelectItem key={c} value={c}>
+                                                        {c}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectGroup>
+                                        </SelectContent>
+                                    </Select>
+                                    {/* <Input type="select" placeholder="Enter the price of the item" {...field} /> */}
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

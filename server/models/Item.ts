@@ -5,6 +5,7 @@ interface IItem {
     description: string;
     price: number;
     seller: mongoose.Schema.Types.ObjectId;
+    category: string;
 }
 
 const itemSchema = new mongoose.Schema<IItem>({
@@ -12,6 +13,7 @@ const itemSchema = new mongoose.Schema<IItem>({
     description: { type: String, required: true },
     price: { type: Number, required: true },
     seller: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    category: { type: String, required: true },
 });
 
 export default mongoose.model("Item", itemSchema);
