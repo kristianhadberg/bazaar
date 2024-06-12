@@ -38,6 +38,7 @@ function RegisterPage() {
 
     return (
         <>
+            <h1 className="text-3xl font-medium mb-10">Register your account.</h1>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     <FormField
@@ -73,14 +74,14 @@ function RegisterPage() {
                             <FormItem>
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Enter your password" {...field} />
+                                    <Input type="password" placeholder="Enter your password" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
                     <Button type="submit" disabled={isLoading}>
-                        {isLoading ? "Registering..." : "Submit"}
+                        {isLoading ? "Registering..." : "Register"}
                     </Button>
                 </form>
             </Form>

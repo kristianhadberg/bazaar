@@ -38,7 +38,7 @@ function AddItemPage() {
 
     return (
         <>
-            <h1 className="text-xl">Add a new item.</h1>
+            <h1 className="text-3xl font-medium mb-10">Add a new item.</h1>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     <FormField

@@ -42,6 +42,7 @@ function LoginPage() {
 
     return (
         <>
+            <h1 className="text-3xl font-medium mb-10">Login to your account.</h1>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                     <FormField
@@ -64,7 +65,7 @@ function LoginPage() {
                             <FormItem>
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Enter your password" {...field} />
+                                    <Input type="password" placeholder="Enter your password" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
