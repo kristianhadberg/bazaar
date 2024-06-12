@@ -1,7 +1,7 @@
 import useItems from "@/hooks/useItems";
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "./ui/card";
 import { Link } from "react-router-dom";
 import { Skeleton } from "./ui/skeleton";
+import ItemCard from "./ItemCard";
 
 function ItemGrid() {
     const { data, isLoading, error } = useItems();
@@ -9,6 +9,10 @@ function ItemGrid() {
 
     if (error) {
         return <p>Error: {error.message}</p>;
+    }
+
+    if (data?.results.length == 0) {
+        return <p>No results found.</p>;
     }
 
     return (
@@ -22,15 +26,7 @@ function ItemGrid() {
                     ))}
                 {data?.results?.map((item) => (
                     <Link key={item._id} to={`/items/${item._id}`}>
-                        <Card className="flex flex-col justify-between h-64">
-                            <CardHeader>
-                                <CardTitle>{item.title}</CardTitle>
-                                <CardDescription>{item.description}</CardDescription>
-                            </CardHeader>
-                            <CardFooter className="justify-end">
-                                <p>€ {item.price}</p>
-                            </CardFooter>
-                        </Card>
+                        <ItemCard item={item} />
                     </Link>
                 ))}
             </div>
