@@ -8,6 +8,7 @@ itemRouter.post("/", async (req, res) => {
     const createItemRequest = req.body as CreateItemDto;
 
     const newItem = new Item(createItemRequest);
+
     await newItem.save();
     res.status(201).send(newItem);
 });
@@ -19,7 +20,7 @@ itemRouter.get("/", async (req, res) => {
 
 itemRouter.get("/:id", async (req, res) => {
     const item = await Item.findById(req.params.id).populate("seller");
-    res.send({ results: item });
+    res.send(item);
 });
 
 export default itemRouter;

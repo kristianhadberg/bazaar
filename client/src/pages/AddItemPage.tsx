@@ -33,7 +33,6 @@ function AddItemPage() {
     });
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
         addItem(values);
     }
 

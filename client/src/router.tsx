@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import RegisterPage from "./pages/RegisterPage";
 import AddItemPage from "./pages/AddItemPage";
+import ItemDetailPage from "./pages/ItemDetailPage";
 
 const router = createBrowserRouter([
     {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
             { path: "/login", element: <LoginPage /> },
             { path: "/register", element: <RegisterPage /> },
             { path: "/add-item", element: <AddItemPage /> },
+            { path: "/items/:id", element: <ItemDetailPage /> },
         ],
     },
 ]);
