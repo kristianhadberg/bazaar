@@ -4,6 +4,7 @@ import dbConnect from "./startup/dbConnect";
 import authRouter from "./routes/authRouter";
 import itemRouter from "./routes/itemRouter";
 import cors from "cors";
+import categoryRouter from "./routes/categoryRouter";
 
 dbConnect();
 
@@ -17,6 +18,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/api/items", itemRouter);
+app.use("/api/categories", categoryRouter);
 
 app.get("/", (req, res) => {
     res.send("Server running!");

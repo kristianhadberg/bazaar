@@ -1,5 +1,6 @@
 import { Router } from "express";
 import Item from "../models/Item";
+import Category from "../models/Category";
 import CreateItemDto from "../dtos/item/createItemDto";
 
 const itemRouter = Router();
@@ -7,7 +8,15 @@ const itemRouter = Router();
 itemRouter.post("/", async (req, res) => {
     const createItemRequest = req.body as CreateItemDto;
 
-    const newItem = new Item(createItemRequest);
+    const category = await Category.findOne({ name: { $regex: createItemRequest.category, $options: "i" } });
+
+    const newItem = new Item({
+        title: createItemRequest.title,
+        description: createItemRequest.description,
+        price: createItemRequest.price,
+        seller: createItemRequest.seller,
+        category: category,
+    });
 
     await newItem.save();
     res.status(201).send(newItem);

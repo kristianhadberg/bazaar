@@ -9,7 +9,7 @@ function NavBar() {
         <div className="flex justify-between mb-12">
             <div>
                 <Link to="/">
-                    <img src="public/bazaar-high-resolution-logo-transparent.png" className="w-40"></img>
+                    <img src="../../public/bazaar-high-resolution-logo-transparent.png" className="w-40"></img>
                 </Link>
             </div>
             <div className="flex gap-2">
