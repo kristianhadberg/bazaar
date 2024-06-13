@@ -8,13 +8,16 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import useAddItem from "@/hooks/useAddItem";
 import useAuthStore from "@/store";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import useCategories from "@/hooks/useCategories";
 
 function AddItemPage() {
     const navigate = useNavigate();
     const { user } = useAuthStore();
 
     const { mutate: addItem, isLoading, error } = useAddItem();
+    const { data: categories } = useCategories();
+    // console.log(categories);
 
     const formSchema = z.object({
         title: z.string().min(2).max(50),
@@ -39,7 +42,7 @@ function AddItemPage() {
         addItem(values);
     }
 
-    const categories = ["Clothes", "Antiques", "Accessories"];
+    // const categories = ["Clothes", "Antiques", "Accessories"];
 
     return (
         <>
@@ -98,15 +101,14 @@ function AddItemPage() {
                                         </SelectTrigger>
                                         <SelectContent>
                                             <SelectGroup>
-                                                {categories.map((c) => (
-                                                    <SelectItem key={c} value={c}>
-                                                        {c}
+                                                {categories?.results?.map((c) => (
+                                                    <SelectItem key={c._id} value={c.name}>
+                                                        {c.name}
                                                     </SelectItem>
                                                 ))}
                                             </SelectGroup>
                                         </SelectContent>
                                     </Select>
-                                    {/* <Input type="select" placeholder="Enter the price of the item" {...field} /> */}
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
