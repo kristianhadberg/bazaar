@@ -14,6 +14,7 @@ const useItems = () => {
             apiClient.getAll({
                 params: {
                     search: itemQuery.searchText,
+                    category: itemQuery.category,
                 },
             }),
         staleTime: 1000 * 60 * 60 * 24, // 1 day

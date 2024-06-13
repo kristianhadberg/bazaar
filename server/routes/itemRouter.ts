@@ -23,13 +23,25 @@ itemRouter.post("/", async (req, res) => {
 });
 
 itemRouter.get("/", async (req, res) => {
-    const { search } = req.query;
+    const { search, category } = req.query;
     let query = {};
 
     if (search) {
         query = {
-            $or: [{ title: { $regex: search, $options: "i" } }, { description: { $regex: search, $options: "i" } }],
+            title: { $regex: search, $options: "i" },
         };
+    }
+
+    if (category) {
+        const requestedCategory = await Category.findOne({ name: { $regex: category, $options: "i" } });
+
+        if (Object.keys(query).length > 0) {
+            query = {
+                $and: [query, { category: requestedCategory?._id }],
+            };
+        } else {
+            query = { category: requestedCategory?._id };
+        }
     }
 
     try {

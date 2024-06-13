@@ -17,7 +17,7 @@ function ItemGrid() {
 
     return (
         <>
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid mt-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {isLoading &&
                     skeletons.map((skeleton) => (
                         <div key={skeleton} className="space-y-2">

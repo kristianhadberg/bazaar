@@ -9,11 +9,14 @@ interface AuthStoreState {
 
 interface ItemQuery {
     searchText?: string;
+    category?: string;
 }
 
 interface ItemQueryStore {
     itemQuery: ItemQuery;
     setSearchText: (searchText: string) => void;
+    setCategory: (category: string) => void;
+    clear: () => void;
 }
 
 const useAuthStore = create<AuthStoreState>((set) => ({
@@ -24,8 +27,9 @@ const useAuthStore = create<AuthStoreState>((set) => ({
 
 export const useItemQueryStore = create<ItemQueryStore>((set) => ({
     itemQuery: {},
-    setSearchText: (searchText) => set({ itemQuery: { searchText } }),
+    setSearchText: (searchText) => set((store) => ({ itemQuery: { ...store.itemQuery, searchText } })),
+    setCategory: (category) => set((store) => ({ itemQuery: { ...store.itemQuery, category } })),
+    clear: () => set(() => ({ itemQuery: {} })),
 }));
 
-// export useItemQueryStore;
 export default useAuthStore;

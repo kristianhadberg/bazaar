@@ -17,7 +17,6 @@ function AddItemPage() {
 
     const { mutate: addItem, isLoading, error } = useAddItem();
     const { data: categories } = useCategories();
-    // console.log(categories);
 
     const formSchema = z.object({
         title: z.string().min(2).max(50),
@@ -39,10 +38,12 @@ function AddItemPage() {
     });
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        addItem(values);
+        addItem(values, {
+            onSuccess: () => {
+                navigate("/");
+            },
+        });
     }
-
-    // const categories = ["Clothes", "Antiques", "Accessories"];
 
     return (
         <>
