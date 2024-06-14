@@ -10,7 +10,7 @@ function ItemDetailPage() {
     const { data: item, isLoading, error } = useItem(id!);
 
     return (
-        <div className="flex gap-20 flex-row justify-between">
+        <div className="flex gap-20 flex-col md:flex-row justify-between">
             <div className="basis-5/12 item-detail-image-container">
                 <img className="item-detail-image" src={`${backendUrl}${item?.image}`} alt={item?.title} />
             </div>
