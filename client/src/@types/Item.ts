@@ -4,6 +4,7 @@ export interface Item {
     description: string;
     price: number;
     seller: string;
+    image: string;
 }
 
 export interface AddItem {

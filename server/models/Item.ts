@@ -6,6 +6,7 @@ interface IItem {
     price: number;
     seller: mongoose.Schema.Types.ObjectId;
     category: mongoose.Schema.Types.ObjectId;
+    image: string;
 }
 
 const itemSchema = new mongoose.Schema<IItem>({
@@ -14,6 +15,7 @@ const itemSchema = new mongoose.Schema<IItem>({
     price: { type: Number, required: true },
     seller: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true },
+    image: { type: String },
 });
 
 export default mongoose.model("Item", itemSchema);

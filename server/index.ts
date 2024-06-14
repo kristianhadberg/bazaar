@@ -5,6 +5,7 @@ import authRouter from "./routes/authRouter";
 import itemRouter from "./routes/itemRouter";
 import cors from "cors";
 import categoryRouter from "./routes/categoryRouter";
+import path from "path";
 
 dbConnect();
 
@@ -19,6 +20,8 @@ app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/api/items", itemRouter);
 app.use("/api/categories", categoryRouter);
+// Serve static files from the 'uploads' directory
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/", (req, res) => {
     res.send("Server running!");

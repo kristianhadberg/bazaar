@@ -2,13 +2,19 @@ import { Router } from "express";
 import Item from "../models/Item";
 import Category from "../models/Category";
 import CreateItemDto from "../dtos/item/createItemDto";
+import { upload } from "../middleware/multer";
 
 const itemRouter = Router();
 
-itemRouter.post("/", async (req, res) => {
+itemRouter.post("/", upload.single("image"), async (req, res) => {
     const createItemRequest = req.body as CreateItemDto;
 
     const category = await Category.findOne({ name: { $regex: createItemRequest.category, $options: "i" } });
+
+    let imagePath;
+    if (req.file) {
+        imagePath = req.file.path;
+    }
 
     const newItem = new Item({
         title: createItemRequest.title,
@@ -16,6 +22,7 @@ itemRouter.post("/", async (req, res) => {
         price: createItemRequest.price,
         seller: createItemRequest.seller,
         category: category,
+        image: imagePath,
     });
 
     await newItem.save();

@@ -24,6 +24,7 @@ function AddItemPage() {
         price: z.coerce.number(),
         seller: z.string(),
         category: z.string(),
+        image: z.instanceof(File).optional(),
     });
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -34,11 +35,23 @@ function AddItemPage() {
             price: 0,
             seller: user?.id,
             category: "",
+            image: undefined,
         },
     });
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        addItem(values, {
+        const formData = new FormData();
+        formData.append("title", values.title);
+        formData.append("description", values.description);
+        formData.append("price", values.price.toString());
+        formData.append("seller", values.seller);
+        formData.append("category", values.category);
+
+        if (values.image) {
+            formData.append("image", values.image);
+        }
+
+        addItem(formData, {
             onSuccess: () => {
                 navigate("/");
             },
@@ -49,7 +62,7 @@ function AddItemPage() {
         <>
             <h1 className="text-3xl font-medium mb-10">Add a new item.</h1>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" encType="multipart/form-data">
                     <FormField
                         control={form.control}
                         name="title"
@@ -115,6 +128,27 @@ function AddItemPage() {
                             </FormItem>
                         )}
                     />
+                    <FormField
+                        control={form.control}
+                        name="image"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Image</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        type="file"
+                                        placeholder="Upload your image"
+                                        onChange={(e) => {
+                                            const file = e.target.files?.[0];
+                                            form.setValue("image", file);
+                                        }}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
                     <Button type="submit" disabled={isLoading}>
                         {isLoading ? "Adding item..." : "Submit"}
                     </Button>
