@@ -9,14 +9,14 @@ function ItemCard({ item }: Props) {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
     return (
-        <Card className="flex flex-col justify-between h-100">
-            <img src={`${backendUrl}${item.image}`} />
-            <CardHeader>
-                <CardTitle>{item.title}</CardTitle>
-                <CardDescription>{item.description}</CardDescription>
+        <Card className="item-card">
+            <img className="item-card-image" src={`${backendUrl}${item.image}`} alt={item.title} />
+            <CardHeader className="item-card-header">
+                <CardTitle className="item-card-title">{item.title}</CardTitle>
+                <CardDescription className="item-card-description">{item.description}</CardDescription>
             </CardHeader>
             <CardContent></CardContent>
-            <CardFooter className="justify-end">
+            <CardFooter className="item-card-footer">
                 <p>€ {item.price}</p>
             </CardFooter>
         </Card>
