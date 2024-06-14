@@ -3,7 +3,7 @@ import ClearSearchButton from "@/components/ClearSearchButton";
 import ItemGrid from "@/components/ItemGrid";
 import SearchInput from "@/components/SearchInput";
 
-function HomePage() {
+function ItemsPage() {
     return (
         <>
             <SearchInput />
@@ -16,4 +16,4 @@ function HomePage() {
     );
 }
 
-export default HomePage;
+export default ItemsPage;
