@@ -55,7 +55,7 @@ itemRouter.get("/", async (req, res) => {
         const items = await Item.find(query).populate("seller");
         res.send({ results: items });
     } catch (err) {
-        res.status(500).send({ error: "Error" });
+        res.status(500).send({ error: err });
     }
 });
 
