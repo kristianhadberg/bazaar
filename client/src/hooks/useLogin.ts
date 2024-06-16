@@ -1,14 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 import ApiClient from "@/services/api-client";
+import { Login, LoginResponse } from "@/@types/Login";
 
-const apiClient = new ApiClient<{
-    username: string;
-    password: string;
-}>("auth/login");
+const apiClient = new ApiClient<Login>("auth/login");
 
 const useLogin = () => {
-    return useMutation({
-        mutationFn: (data: { username: string; password: string }) => apiClient.post(data),
+    return useMutation<LoginResponse, Error, Login>({
+        mutationFn: (data: Login) => apiClient.login(data),
     });
 };
 

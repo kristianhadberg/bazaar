@@ -1,3 +1,4 @@
+import { LoginResponse } from "@/@types/Login";
 import axios, { AxiosRequestConfig } from "axios";
 
 export interface FetchResponse<T> {
@@ -23,6 +24,9 @@ class ApiClient<T> {
     getOne = (id: string) => axiosInstance.get<T>(`${this.endpoint}/${id}`).then((res) => res.data);
 
     post = (data: T, config?: AxiosRequestConfig) => axiosInstance.post<T>(this.endpoint, data, config).then((res) => res.data);
+
+    // used this because i need a specific response type
+    login = (data: T, config?: AxiosRequestConfig) => axiosInstance.post<T>(this.endpoint, data, config).then((res) => res.data as LoginResponse);
 }
 
 export default ApiClient;

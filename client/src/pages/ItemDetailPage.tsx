@@ -7,7 +7,11 @@ function ItemDetailPage() {
 
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-    const { data: item, isLoading, error } = useItem(id!);
+    const { data: item, error } = useItem(id!);
+
+    if (error) {
+        return <p>Error: {error.message}</p>;
+    }
 
     return (
         <div className="flex gap-20 flex-col md:flex-row justify-between">

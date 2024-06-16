@@ -16,7 +16,7 @@ function SearchInput() {
         }
     }, [searchText]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setSearchText(ref.current?.value ?? "");
     };

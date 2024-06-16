@@ -85,7 +85,7 @@ function RegisterPage() {
                     </Button>
                 </form>
             </Form>
-            {error && <p className="text-red-500">Error: {error.response?.data?.message || error.message}</p>}
+            {error && <p className="text-red-500">Error: {error.message}</p>}
         </>
     );
 }
