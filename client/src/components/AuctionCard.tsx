@@ -16,8 +16,9 @@ function AuctionCard({ auction }: Props) {
                 <CardDescription className="item-card-description">{auction.description}</CardDescription>
             </CardHeader>
             <CardContent></CardContent>
-            <CardFooter className="item-card-footer">
-                <p>€ {auction.startingPrice}</p>
+            <CardFooter className="flex flex-col item-card-footer">
+                <p>Starting price: € {auction.startingPrice}</p>
+                <p>Highest bid: {auction.highestBidder ? `€ ${auction.highestBidder}` : "0"}</p>
             </CardFooter>
         </Card>
     );

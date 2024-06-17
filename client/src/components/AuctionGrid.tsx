@@ -25,7 +25,7 @@ function AuctionGrid() {
                         </div>
                     ))}
                 {data?.results?.map((auction) => (
-                    <Link key={auction._id} to={`/auction/${auction._id}`}>
+                    <Link key={auction._id} to={`/auctions/${auction._id}`}>
                         <AuctionCard auction={auction} />
                     </Link>
                 ))}
