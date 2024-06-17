@@ -25,7 +25,10 @@ function AuctionDetailPage() {
 
     const placeBid = () => {
         if (!user) {
-            console.log("s");
+            return;
+        }
+
+        if (auction?.highestBidder?.username == user.username) {
             return;
         }
 

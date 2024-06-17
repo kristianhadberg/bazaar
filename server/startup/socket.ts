@@ -23,6 +23,10 @@ const setupSocket = (server: HttpServer) => {
             const { auctionId, bidderId, bidAmount } = data;
             const auction = await Auction.findById(auctionId);
 
+            if (auction?.highestBidder === bidderId) {
+                return;
+            }
+
             if (auction && bidAmount > auction.startingPrice && bidAmount > auction.currentPrice) {
                 auction.currentPrice = bidAmount;
                 auction.highestBidder = bidderId;

@@ -10,8 +10,6 @@ const auctionRouter = Router();
 auctionRouter.post("/", upload.single("image"), async (req, res) => {
     const createAuctionRequest = req.body as CreateAuctionDto;
 
-    console.log(createAuctionRequest);
-
     const category = await Category.findOne({ name: { $regex: req.body.category, $options: "i" } });
 
     let imagePath;
