@@ -106,19 +106,7 @@ function AddAuctionPage() {
                             </FormItem>
                         )}
                     />
-                    {/* <FormField
-                        control={form.control}
-                        name="endTime"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>End time</FormLabel>
-                                <FormControl>
-                                    <Input type="datetime-local" placeholder="Enter the end time of the auction" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    /> */}
+
                     <FormField
                         control={form.control}
                         name="endTime"
