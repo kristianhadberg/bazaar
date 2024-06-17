@@ -33,8 +33,33 @@ auctionRouter.post("/", upload.single("image"), async (req, res) => {
 
 // Get all auctions
 auctionRouter.get("/", async (req, res) => {
-    const auctions = await Auction.find().populate("seller").populate("highestBidder");
-    res.send({ results: auctions });
+    const { search, category } = req.query;
+    let query = {};
+
+    if (search) {
+        query = {
+            title: { $regex: search, $options: "i" },
+        };
+    }
+
+    if (category) {
+        const requestedCategory = await Category.findOne({ name: { $regex: category, $options: "i" } });
+
+        if (Object.keys(query).length > 0) {
+            query = {
+                $and: [query, { category: requestedCategory?._id }],
+            };
+        } else {
+            query = { category: requestedCategory?._id };
+        }
+    }
+
+    try {
+        const auctions = await Auction.find(query).populate("seller").populate("highestBidder");
+        res.send({ results: auctions });
+    } catch (err) {
+        res.status(500).send({ error: err });
+    }
 });
 
 // Get a specific auction by ID
