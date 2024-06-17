@@ -19,6 +19,18 @@ interface ItemQueryStore {
     clear: () => void;
 }
 
+interface AuctionQuery {
+    searchText?: string;
+    category?: string;
+}
+
+interface AuctionQueryStore {
+    auctionQuery: AuctionQuery;
+    setSearchText: (searchText: string) => void;
+    setCategory: (category: string) => void;
+    clear: () => void;
+}
+
 const useAuthStore = create<AuthStoreState>((set) => ({
     user: null,
     setUser: (user) => set({ user }),
@@ -30,6 +42,13 @@ export const useItemQueryStore = create<ItemQueryStore>((set) => ({
     setSearchText: (searchText) => set((store) => ({ itemQuery: { ...store.itemQuery, searchText } })),
     setCategory: (category) => set((store) => ({ itemQuery: { ...store.itemQuery, category } })),
     clear: () => set(() => ({ itemQuery: {} })),
+}));
+
+export const useAuctionQueryStore = create<AuctionQueryStore>((set) => ({
+    auctionQuery: {},
+    setSearchText: (searchText) => set((store) => ({ auctionQuery: { ...store.auctionQuery, searchText } })),
+    setCategory: (category) => set((store) => ({ auctionQuery: { ...store.auctionQuery, category } })),
+    clear: () => set(() => ({ auctionQuery: {} })),
 }));
 
 export default useAuthStore;

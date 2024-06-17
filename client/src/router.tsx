@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage";
 import AddItemPage from "./pages/AddItemPage";
 import ItemDetailPage from "./pages/ItemDetailPage";
 import AuctionsPage from "./pages/AuctionsPage";
+import AddAuctionPage from "./pages/AddAuctionPage";
 
 const router = createBrowserRouter([
     {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
             { path: "/login", element: <LoginPage /> },
             { path: "/register", element: <RegisterPage /> },
             { path: "/add-item", element: <AddItemPage /> },
+            { path: "/add-auction", element: <AddAuctionPage /> },
             { path: "/items/:id", element: <ItemDetailPage /> },
         ],
     },

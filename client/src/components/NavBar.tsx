@@ -24,6 +24,9 @@ function NavBar() {
                     </>
                 ) : (
                     <>
+                        <Link to="/add-auction">
+                            <Button>Add auction</Button>
+                        </Link>
                         <Link to="/add-item">
                             <Button>Add item</Button>
                         </Link>

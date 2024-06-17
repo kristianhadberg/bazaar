@@ -1,5 +1,12 @@
+import AuctionGrid from "@/components/AuctionGrid";
+
 function AuctionsPage() {
-    return <div>AuctionsPage</div>;
+    return (
+        <>
+            <p>Auctionspage</p>
+            <AuctionGrid />
+        </>
+    );
 }
 
 export default AuctionsPage;
