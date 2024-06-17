@@ -57,7 +57,7 @@ function AddAuctionPage() {
 
         addAuction(formData, {
             onSuccess: () => {
-                navigate("/");
+                navigate("/auctions");
             },
         });
     }

@@ -1,8 +1,10 @@
-import { useItemQueryStore } from "@/store";
 import { Button } from "./ui/button";
 
-function ClearSearchButton() {
-    const clear = useItemQueryStore((state) => state.clear);
+interface Props {
+    clear: () => void;
+}
+
+function ClearSearchButton({ clear }: Props) {
     return (
         <Button onClick={clear} variant="secondary">
             Clear

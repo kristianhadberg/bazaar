@@ -1,17 +1,18 @@
 import useCategories from "@/hooks/useCategories";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
 import { useEffect } from "react";
-import { useItemQueryStore } from "@/store";
 
-function CategorySelector() {
+interface Props {
+    category: string | undefined;
+    setCategory: (text: string) => void;
+}
+
+function CategorySelector({ category, setCategory }: Props) {
     const { data: categories, error } = useCategories();
 
-    const selectedCategory = useItemQueryStore((state) => state.itemQuery.category);
-    const setCategory = useItemQueryStore((state) => state.setCategory);
-
     useEffect(() => {
-        setCategory(selectedCategory || "");
-    }, [selectedCategory]);
+        setCategory(category || "");
+    }, [category, setCategory]);
 
     if (error) {
         return null;
@@ -20,7 +21,7 @@ function CategorySelector() {
     return (
         <div>
             <Select
-                value={selectedCategory}
+                value={category}
                 onValueChange={(value) => {
                     setCategory(value);
 

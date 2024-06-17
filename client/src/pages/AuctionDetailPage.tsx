@@ -57,7 +57,8 @@ function AuctionDetailPage() {
                     </div>
                     <div className="flex flex-col justify-between mt-10 ">
                         <p className="text-xl">Starting price: € {auction?.startingPrice}</p>
-                        <p className="text-xl">Highest bid: {auction?.currentPrice ? `€ ${auction.currentPrice} by ${auction.highestBidder?.username}` : "0"}</p>
+                        <p className="text-xl font-bold">Highest bid: {auction?.currentPrice ? `€ ${auction.currentPrice} by ${auction.highestBidder?.username}` : "0"}</p>
+                        {auction?.endTime && <p className="font-light">Ends at: {new Date(auction.endTime).toLocaleString("dk-DK", { dateStyle: "short", timeStyle: "short" })}</p>}
                         <Input disabled={!user ? true : false} className="mt-10 mb-5" type="number" value={bidAmount} onChange={(e) => setBidAmount(Number(e.target.value))} placeholder="Place your bid" />
                         <Button disabled={!user ? true : false} onClick={placeBid}>
                             Place bid
