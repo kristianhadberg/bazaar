@@ -1,11 +1,13 @@
+import { User } from "./User";
+
 export interface Auction {
     _id: string;
     title: string;
     description: string;
     startingPrice: number;
     currentPrice?: number;
-    seller: string;
+    seller: User;
     endTime: Date;
-    highestBidder?: string;
+    highestBidder?: User;
     image: string;
 }

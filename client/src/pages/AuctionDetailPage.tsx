@@ -1,13 +1,40 @@
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import useAuction from "@/hooks/useAuction";
+import useAuthStore from "@/store";
+import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
+import io from "socket.io-client";
 
 function AuctionDetailPage() {
-    const { id } = useParams();
-
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    const socket = io(backendUrl);
+    const { id: auctionId } = useParams();
+    const { user } = useAuthStore();
+    const [bidAmount, setBidAmount] = useState<number>(0);
+    const queryClient = useQueryClient();
 
-    const { data: auction, error } = useAuction(id!);
+    const { data: auction, error } = useAuction(auctionId!);
+
+    socket.emit("joinAuction", auctionId);
+
+    socket.on("newBid", () => {
+        queryClient.invalidateQueries(["auction", auctionId]);
+    });
+
+    const placeBid = () => {
+        if (!user) {
+            console.log("s");
+            return;
+        }
+
+        socket.emit("placeBid", {
+            auctionId: auctionId,
+            bidderId: user.id,
+            bidAmount: bidAmount,
+        });
+    };
 
     if (error) {
         return <p>Error: {error.message}</p>;
@@ -27,8 +54,12 @@ function AuctionDetailPage() {
                     </div>
                     <div className="flex flex-col justify-between mt-10 ">
                         <p className="text-xl">Starting price: € {auction?.startingPrice}</p>
-                        <p className="text-xl">Highest bid: {auction?.highestBidder ? `€ ${auction.highestBidder}` : "0"}</p>
-                        <Button>Bid</Button>
+                        <p className="text-xl">Highest bid: {auction?.currentPrice ? `€ ${auction.currentPrice} by ${auction.highestBidder?.username}` : "0"}</p>
+                        <Input disabled={!user ? true : false} className="mt-10 mb-5" type="number" value={bidAmount} onChange={(e) => setBidAmount(Number(e.target.value))} placeholder="Place your bid" />
+                        <Button disabled={!user ? true : false} onClick={placeBid}>
+                            Place bid
+                        </Button>
+                        {!user && <p>Please login to place a bid.</p>}
                     </div>
                 </div>
             </div>

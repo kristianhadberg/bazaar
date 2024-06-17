@@ -8,7 +8,6 @@ const auctionRouter = Router();
 
 // Create a new auction
 auctionRouter.post("/", upload.single("image"), async (req, res) => {
-    console.log(req.body);
     const createAuctionRequest = req.body as CreateAuctionDto;
 
     console.log(createAuctionRequest);

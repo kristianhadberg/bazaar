@@ -16,7 +16,7 @@ const auctionSchema = new mongoose.Schema<IAuction>({
     title: { type: String, required: true },
     description: { type: String, required: true },
     startingPrice: { type: Number, required: true },
-    currentPrice: { type: Number },
+    currentPrice: { type: Number, default: 0 },
     endTime: { type: Date, required: true },
     seller: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
     highestBidder: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
