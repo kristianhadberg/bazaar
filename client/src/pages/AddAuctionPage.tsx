@@ -106,7 +106,7 @@ function AddAuctionPage() {
                             </FormItem>
                         )}
                     />
-                    <FormField
+                    {/* <FormField
                         control={form.control}
                         name="endTime"
                         render={({ field }) => (
@@ -114,6 +114,19 @@ function AddAuctionPage() {
                                 <FormLabel>End time</FormLabel>
                                 <FormControl>
                                     <Input type="datetime-local" placeholder="Enter the end time of the auction" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    /> */}
+                    <FormField
+                        control={form.control}
+                        name="endTime"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>End time</FormLabel>
+                                <FormControl>
+                                    <Input type="datetime-local" placeholder="Enter the end time of the auction" value={field.value ? new Date(field.value).toISOString().slice(0, 16) : ""} onChange={(e) => field.onChange(new Date(e.target.value))} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
