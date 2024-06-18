@@ -8,11 +8,13 @@ import ItemDetailPage from "./pages/ItemDetailPage";
 import AuctionsPage from "./pages/AuctionsPage";
 import AddAuctionPage from "./pages/AddAuctionPage";
 import AuctionDetailPage from "./pages/AuctionDetailPage";
+import ErrorPage from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Layout />,
+        errorElement: <ErrorPage />,
         children: [
             { path: "/", element: <ItemsPage /> },
             { path: "/auctions", element: <AuctionsPage /> },
