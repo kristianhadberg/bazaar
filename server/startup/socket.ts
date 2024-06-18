@@ -60,7 +60,6 @@ const setupSocket = (server: HttpServer) => {
 
                 socket.emit("bidSuccess", "Bid successfully placed");
             }
-            return;
         });
 
         socket.on("disconnect", () => {
