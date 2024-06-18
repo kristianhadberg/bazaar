@@ -1,6 +1,6 @@
 import useCategories from "@/hooks/useCategories";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "./ui/select";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 interface Props {
     category: string | undefined;
@@ -9,6 +9,7 @@ interface Props {
 
 function CategorySelector({ category, setCategory }: Props) {
     const { data: categories, error } = useCategories();
+    const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setCategory(category || "");
@@ -37,7 +38,9 @@ function CategorySelector({ category, setCategory }: Props) {
                 <SelectContent>
                     <SelectGroup>
                         <SelectLabel>Categories</SelectLabel>
-                        <SelectItem value="All">All</SelectItem>
+                        <SelectItem ref={ref} value="All">
+                            All
+                        </SelectItem>
                         {categories?.results?.map((c) => (
                             <SelectItem key={c._id} value={c.name}>
                                 {c.name}

@@ -33,7 +33,7 @@ auctionRouter.post("/", upload.single("image"), async (req, res) => {
 
 // Get all auctions
 auctionRouter.get("/", async (req, res) => {
-    const { search, category } = req.query;
+    const { search, category, ended } = req.query;
     let query = {};
 
     if (search) {
@@ -56,8 +56,14 @@ auctionRouter.get("/", async (req, res) => {
 
     try {
         const auctions = await Auction.find(query).populate("seller").populate("highestBidder");
-        const activeAuctions = auctions.filter((auction) => auction.isActive());
 
+        if (ended == "true") {
+            const endedAuctions = auctions.filter((auction) => !auction.isActive());
+            res.send({ results: endedAuctions });
+            return;
+        }
+
+        const activeAuctions = auctions.filter((auction) => auction.isActive());
         res.send({ results: activeAuctions });
     } catch (err) {
         res.status(500).send({ error: err });
