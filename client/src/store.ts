@@ -22,12 +22,14 @@ interface ItemQueryStore {
 interface AuctionQuery {
     searchText?: string;
     category?: string;
+    ended?: boolean;
 }
 
 interface AuctionQueryStore {
     auctionQuery: AuctionQuery;
     setSearchText: (searchText: string) => void;
     setCategory: (category: string) => void;
+    setEnded: (ended: boolean) => void;
     clear: () => void;
 }
 
@@ -48,6 +50,7 @@ export const useAuctionQueryStore = create<AuctionQueryStore>((set) => ({
     auctionQuery: {},
     setSearchText: (searchText) => set((store) => ({ auctionQuery: { ...store.auctionQuery, searchText } })),
     setCategory: (category) => set((store) => ({ auctionQuery: { ...store.auctionQuery, category } })),
+    setEnded: (ended) => set((store) => ({ auctionQuery: { ...store.auctionQuery, ended } })),
     clear: () => set(() => ({ auctionQuery: {} })),
 }));
 

@@ -60,8 +60,6 @@ function AddAuctionPage() {
             formData.append("image", values.image);
         }
 
-        console.log(formData);
-
         addAuction(formData, {
             onSuccess: () => {
                 navigate("/auctions");
