@@ -10,6 +10,8 @@ import io from "socket.io-client";
 function AuctionDetailPage() {
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
     const socket = io(backendUrl);
+    const [socketErrorMessage, setSocketErrorMessage] = useState<string>("");
+    const [socketSuccessMessage, setSocketSuccessMessage] = useState<string>("");
     const { id: auctionId } = useParams();
     const { user } = useAuthStore();
     const [bidAmount, setBidAmount] = useState<number>(0);
@@ -21,6 +23,16 @@ function AuctionDetailPage() {
 
     socket.on("newBid", () => {
         queryClient.invalidateQueries(["auction", auctionId]);
+    });
+
+    socket.on("bidError", (err) => {
+        setSocketErrorMessage(err);
+        setSocketSuccessMessage("");
+    });
+
+    socket.on("bidSuccess", (message) => {
+        setSocketSuccessMessage(message);
+        setSocketErrorMessage("");
     });
 
     const placeBid = () => {
@@ -64,6 +76,8 @@ function AuctionDetailPage() {
                             Place bid
                         </Button>
                         {!user && <p>Please login to place a bid.</p>}
+                        {socketErrorMessage && <p className="text-red-500">{socketErrorMessage}</p>}
+                        {socketSuccessMessage && <p className="text-green-500">{socketSuccessMessage}</p>}
                     </div>
                 </div>
             </div>

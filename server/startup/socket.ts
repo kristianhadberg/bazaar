@@ -19,7 +19,7 @@ const setupSocket = (server: HttpServer) => {
             socket.join(auctionId);
         });
 
-        socket.on("placeBid", async (data: { auctionId: string; bidderId: Schema.Types.ObjectId; bidAmount: number }) => {
+        socket.on("placeBid", async (data: { auctionId: string; bidderId: Schema.Types.ObjectId; bidAmount: number }, callback) => {
             const { auctionId, bidderId, bidAmount } = data;
             const auction = await Auction.findById(auctionId);
 
@@ -27,7 +27,17 @@ const setupSocket = (server: HttpServer) => {
                 return;
             }
 
-            if (auction && bidAmount > auction.startingPrice && bidAmount > auction.currentPrice) {
+            if (auction) {
+                if (bidAmount < auction.startingPrice) {
+                    socket.emit("bidError", "Bid must be higher than the starting price.");
+                    return;
+                }
+
+                if (bidAmount < auction.currentPrice) {
+                    socket.emit("bidError", "Bid must be higher than the current price.");
+                    return;
+                }
+
                 auction.currentPrice = bidAmount;
                 auction.highestBidder = bidderId;
                 await auction.save();
@@ -36,6 +46,8 @@ const setupSocket = (server: HttpServer) => {
                     currentPrice: auction.currentPrice,
                     highestBidder: auction.highestBidder,
                 });
+
+                socket.emit("bidSuccess", "Bid successfully placed");
             }
         });
 

@@ -60,8 +60,12 @@ itemRouter.get("/", async (req, res) => {
 });
 
 itemRouter.get("/:id", async (req, res) => {
-    const item = await Item.findById(req.params.id).populate("seller");
-    res.send(item);
+    try {
+        const item = await Item.findById(req.params.id).populate("seller");
+        res.send(item);
+    } catch (err) {
+        res.status(500).send({ error: err });
+    }
 });
 
 export default itemRouter;
