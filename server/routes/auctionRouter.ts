@@ -56,7 +56,9 @@ auctionRouter.get("/", async (req, res) => {
 
     try {
         const auctions = await Auction.find(query).populate("seller").populate("highestBidder");
-        res.send({ results: auctions });
+        const activeAuctions = auctions.filter((auction) => auction.isActive());
+
+        res.send({ results: activeAuctions });
     } catch (err) {
         res.status(500).send({ error: err });
     }

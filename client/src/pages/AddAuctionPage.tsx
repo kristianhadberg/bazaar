@@ -10,10 +10,12 @@ import useAuthStore from "@/store";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import useCategories from "@/hooks/useCategories";
 import useAddAuction from "@/hooks/useAddAuction";
+import { useRef } from "react";
 
 function AddAuctionPage() {
     const navigate = useNavigate();
     const { user } = useAuthStore();
+    const ref = useRef<HTMLInputElement>(null);
 
     const { mutate: addAuction, isLoading, error } = useAddAuction();
     const { data: categories } = useCategories();
@@ -22,7 +24,6 @@ function AddAuctionPage() {
         title: z.string().min(2).max(50),
         description: z.string().min(2),
         startingPrice: z.coerce.number(),
-        endTime: z.coerce.date(),
         seller: z.string(),
         category: z.string(),
         image: z.instanceof(File).optional(),
@@ -46,7 +47,13 @@ function AddAuctionPage() {
         formData.append("description", values.description);
         formData.append("startingPrice", values.startingPrice.toString());
         formData.append("seller", values.seller);
-        formData.append("endTime", new Date(values.endTime).toISOString());
+
+        const endDateString = ref?.current?.value;
+        const dateParsed = Date.parse(endDateString!);
+        const endDate = new Date(dateParsed);
+        const endDateIso = endDate.toISOString();
+
+        formData.append("endTime", endDateIso);
         formData.append("category", values.category);
 
         if (values.image) {
@@ -106,15 +113,13 @@ function AddAuctionPage() {
                             </FormItem>
                         )}
                     />
-
                     <FormField
-                        control={form.control}
                         name="endTime"
-                        render={({ field }) => (
+                        render={() => (
                             <FormItem>
                                 <FormLabel>End time</FormLabel>
                                 <FormControl>
-                                    <Input type="datetime-local" placeholder="Enter the end time of the auction" value={field.value ? new Date(field.value).toISOString().slice(0, 16) : ""} onChange={(e) => field.onChange(new Date(e.target.value))} />
+                                    <Input ref={ref} type="datetime-local" placeholder="Enter the end time of the auction" />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

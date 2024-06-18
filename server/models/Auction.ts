@@ -10,6 +10,7 @@ interface IAuction {
     highestBidder: mongoose.Schema.Types.ObjectId;
     category: mongoose.Schema.Types.ObjectId;
     image: string;
+    isActive(): boolean;
 }
 
 const auctionSchema = new mongoose.Schema<IAuction>({
@@ -23,5 +24,9 @@ const auctionSchema = new mongoose.Schema<IAuction>({
     category: { type: mongoose.Schema.Types.ObjectId, ref: "Category", required: true },
     image: { type: String },
 });
+
+auctionSchema.methods.isActive = function () {
+    return new Date() < this.endTime;
+};
 
 export default mongoose.model("Auction", auctionSchema);

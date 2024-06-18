@@ -33,8 +33,13 @@ const setupSocket = (server: HttpServer) => {
                     return;
                 }
 
-                if (bidAmount < auction.currentPrice) {
+                if (bidAmount <= auction.currentPrice) {
                     socket.emit("bidError", "Bid must be higher than the current price.");
+                    return;
+                }
+
+                if (!auction.isActive()) {
+                    socket.emit("bidError", "Auction has ended.");
                     return;
                 }
 
