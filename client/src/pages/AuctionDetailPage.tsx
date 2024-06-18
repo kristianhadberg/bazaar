@@ -40,10 +40,6 @@ function AuctionDetailPage() {
             return;
         }
 
-        if (auction?.highestBidder?.username == user.username) {
-            return;
-        }
-
         socket.emit("placeBid", {
             auctionId: auctionId,
             bidderId: user.id,
