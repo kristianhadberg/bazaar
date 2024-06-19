@@ -34,9 +34,11 @@ const setupSocket = (server: HttpServer) => {
                     return;
                 }
 
-                if (auction.highestBidder.toString() === bidderId.toString()) {
-                    socket.emit("bidError", "You already have the highest bid.");
-                    return;
+                if (auction.highestBidder) {
+                    if (auction.highestBidder.toString() === bidderId.toString()) {
+                        socket.emit("bidError", "You already have the highest bid.");
+                        return;
+                    }
                 }
 
                 if (bidAmount < auction.startingPrice) {

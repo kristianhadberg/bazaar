@@ -23,6 +23,8 @@ function AuctionDetailPage() {
 
     socket.on("newBid", () => {
         queryClient.invalidateQueries(["auction", auctionId]);
+        setSocketSuccessMessage("");
+        setSocketErrorMessage("");
     });
 
     socket.on("bidError", (err) => {
