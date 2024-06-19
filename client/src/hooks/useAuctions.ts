@@ -16,6 +16,8 @@ const useAuctions = () => {
                     search: auctionQuery.searchText,
                     category: auctionQuery.category,
                     ended: auctionQuery.ended,
+                    sort: auctionQuery.sort,
+                    order: auctionQuery.order,
                 },
             }),
         staleTime: 1000 * 60 * 60 * 24, // 1 day

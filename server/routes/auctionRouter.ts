@@ -33,7 +33,7 @@ auctionRouter.post("/", upload.single("image"), async (req, res) => {
 
 // Get all auctions
 auctionRouter.get("/", async (req, res) => {
-    const { search, category, ended } = req.query;
+    const { search, category, ended, sort, order } = req.query;
     let query = {};
 
     if (search) {
@@ -54,8 +54,14 @@ auctionRouter.get("/", async (req, res) => {
         }
     }
 
+    let sortOptions = {};
+    if (sort) {
+        const sortField = sort.toString();
+        const sortOrder = order === "asc" ? 1 : -1;
+        sortOptions = { [sortField]: sortOrder };
+    }
     try {
-        const auctions = await Auction.find(query).populate("seller").populate("highestBidder");
+        const auctions = await Auction.find(query).populate("seller").populate("highestBidder").sort(sortOptions);
 
         if (ended == "true") {
             const endedAuctions = auctions.filter((auction) => !auction.isActive());

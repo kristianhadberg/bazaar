@@ -25,6 +25,7 @@ function UserListingsPage() {
                             <ItemCard item={item} />
                         </Link>
                     ))}
+                    {data?.items.length === 0 && <p>No listed items.</p>}
                 </div>
             </div>
             <div className="mt-20">
@@ -35,6 +36,7 @@ function UserListingsPage() {
                             <AuctionCard auction={auction} />
                         </Link>
                     ))}
+                    {data?.auctions.length === 0 && <p>No listed auctions.</p>}
                 </div>
             </div>
         </div>
