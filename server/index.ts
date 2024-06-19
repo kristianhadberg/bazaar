@@ -1,6 +1,5 @@
 import express from "express";
 import http from "http";
-import socketIo from "socket.io";
 import "dotenv/config";
 import dbConnect from "./startup/dbConnect";
 import authRouter from "./routes/authRouter";
@@ -10,6 +9,7 @@ import categoryRouter from "./routes/categoryRouter";
 import path from "path";
 import auctionRouter from "./routes/auctionRouter";
 import setupSocket from "./startup/socket";
+import listingsRouter from "./routes/listingsRouter";
 
 dbConnect();
 
@@ -28,6 +28,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/items", itemRouter);
 app.use("/api/auctions", auctionRouter);
 app.use("/api/categories", categoryRouter);
+app.use("/api/listings", listingsRouter);
 // Serve static files from the 'uploads' directory
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 

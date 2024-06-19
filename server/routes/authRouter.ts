@@ -34,7 +34,9 @@ authRouter.post("/login", async (req, res) => {
     const validPassword = await bcrypt.compare(loginRequest.password, user.password);
     if (!validPassword) return res.status(401).send("Incorrect login information.");
 
-    const token = jwt.sign({ _id: user._id }, "secretKey");
+    const secret = process.env.JWT_SECRET!;
+
+    const token = jwt.sign({ _id: user._id }, secret);
     res.header("auth-token", token).send({ token: token, id: user._id, username: user.username });
 });
 

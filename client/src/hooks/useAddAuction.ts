@@ -19,6 +19,7 @@ const useAddAuction = () => {
         mutationFn: (data: FormData) => apiClient.post(data),
         onSuccess: () => {
             queryClient.invalidateQueries(["auctions"]);
+            queryClient.invalidateQueries(["listings"]);
         },
     });
 };

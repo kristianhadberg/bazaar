@@ -19,6 +19,7 @@ const useAddItem = () => {
         mutationFn: (data: FormData) => apiClient.post(data),
         onSuccess: () => {
             queryClient.invalidateQueries(["items"]);
+            queryClient.invalidateQueries(["listings"]);
         },
     });
 };
