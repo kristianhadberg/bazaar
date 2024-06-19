@@ -1,9 +1,11 @@
+import { User } from "./User";
+
 export interface Item {
     _id: string;
     title: string;
     description: string;
     price: number;
-    seller: string;
+    seller: User;
     image: string;
 }
 

@@ -7,7 +7,7 @@ function Menu() {
     const path = location.pathname;
 
     return (
-        <div className="flex mb-10 gap-2">
+        <div className="flex mb-10 gap-2 pb-6 border-black border-b-4">
             <Link to="/auctions">
                 <Button className="h-16 w-36" variant={path === "/auctions" ? "secondary" : "outline"}>
                     Auctions
