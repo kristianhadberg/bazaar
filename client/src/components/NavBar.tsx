@@ -30,6 +30,9 @@ function NavBar() {
                         <Link to="/add-item">
                             <Button>Add item</Button>
                         </Link>
+                        <Link to="/listings">
+                            <Button variant="outline">My listings</Button>
+                        </Link>
                         <Button onClick={logout} variant="outline">
                             Log out
                         </Button>

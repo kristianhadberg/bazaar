@@ -34,6 +34,7 @@ function LoginPage() {
                 setUser({
                     id: res.id,
                     username: res.username,
+                    token: res.token,
                 });
                 navigate("/");
             },
