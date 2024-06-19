@@ -58,6 +58,10 @@ function AuctionDetailPage() {
             </div>
             <div className="basis-6/12">
                 <p className="text-xl font-bold">{auction?.title}</p>
+                <div className="flex">
+                    <p className="font-light">Auction listed by:</p>
+                    <p className="font-medium ml-1">{auction?.seller.username}</p>
+                </div>
                 <div className="border-t-2 border-b-2 mt-12 pt-6 pb-6">
                     <div>
                         <p className="font-bold">Description</p>
